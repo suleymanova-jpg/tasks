@@ -1,0 +1,3 @@
+def print_to_n(n):
+  current=1
+  return [current , n+1]
