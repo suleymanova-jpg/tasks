@@ -1,0 +1,207 @@
+import json
+import time
+import sys
+
+# Qeydiyyatların saxlanılması üçün boş siyahı
+records = []
+
+# ASCII Art və Loading
+def welcome_screen():
+    ascii_logo = r"""
+   __        _ _       _                                      
+  / _ \      () |     | |                                     
+ | |  | |_   _ | | _| |_   __ _ _ __   _ _ _ _  _ __  
+ | |  | | | | | | _/ _| '_ \ / _ \ '_ ` _ \ / ` | ' \| '_ \ 
+ | |_| | || | | || (_| | | |  _/ | | | | | (| | |) | |_) |
+  \_\\\,||\\_|| ||\_|| || ||\_,| ._/| ._/ 
+                                                   | |   | |    
+                                                   ||   ||    
+    """
+    print(ascii_logo)
+    print("            Welcome to the Online Exam System")
+    print("====================================================")
+    loading_animation("Loading System")
+
+# Sadə loading animation
+def loading_animation(text):
+    print(f"{text}", end="")
+    for _ in range(3):
+        time.sleep(0.5)
+        print(".", end="")
+        sys.stdout.flush()
+    print("\n")
+
+def main_menu():
+    print("\nMain Menu:")
+    print("1. Add New Record")
+    print("2. View All Records")
+    print("3. Search for a Record")
+    print("4. Update a Record")
+    print("5. Delete a Record")
+    print("6. Calculate Summary Stats")
+    print("7. Save Records to File")
+    print("8. Load Records from File")
+    print("9. Clear All Data")
+    print("10. Help/Instructions")
+    print("11. Add Exam Result")
+    print("12. View Exam Results for a Student")
+    print("0. Exit")
+
+def add_record():
+    record = {}
+    record['id'] = input("Enter ID: ")
+    record['name'] = input("Enter Name: ")
+    record['exam_results'] = {}  # Yeni: İmtahanlar üçün boş dictionary
+    records.append(record)
+    print("Record added successfully!")
+
+def view_records():
+    if not records:
+        print("No records found.")
+        return
+    print("\nAll Records:")
+    for record in records:
+        print(f"ID: {record['id']}, Name: {record['name']}, Exams: {list(record['exam_results'].keys())}")
+
+def search_record():
+    search_id = input("Enter ID to search: ")
+    for record in records:
+        if record['id'] == search_id:
+            print(f"Found Record - ID: {record['id']}, Name: {record['name']}")
+            return
+    print("Record not found.")
+
+def update_record():
+    search_id = input("Enter ID to update: ")
+    for record in records:
+        if record['id'] == search_id:
+            record['name'] = input("Enter new Name: ")
+            print("Record updated successfully!")
+            return
+    print("Record not found.")
+
+def delete_record():
+    search_id = input("Enter ID to delete: ")
+    global records
+    original_length = len(records)
+    records = [record for record in records if record['id'] != search_id]
+    if len(records) < original_length:
+        print("Record deleted successfully!")
+    else:
+        print("Record not found.")
+
+def calculate_summary_stats():
+    total_scores = 0
+    total_exams = 0
+    for record in records:
+        total_scores += sum(record['exam_results'].values())
+        total_exams += len(record['exam_results'])
+    if total_exams == 0:
+        print("No exam data available.")
+        return
+    average = total_scores / total_exams
+    print(f"Total Exams: {total_exams}, Average Score: {average:.2f}")
+
+def save_records_to_file():
+    with open('records.json', 'w') as file:
+        json.dump(records, file)
+    print("Records saved to file successfully!")
+
+def load_records_from_file():
+    global records
+    try:
+        with open('records.json', 'r') as file:
+            records = json.load(file)
+        print("Records loaded from file successfully!")
+    except FileNotFoundError:
+        print("No saved records found.")
+    except json.JSONDecodeError:
+        print("File is corrupted or empty.")
+
+def clear_all_data():
+    confirmation = input("Are you sure you want to clear all data? (yes/no): ")
+    if confirmation.lower() == 'yes':
+        global records
+        records = []
+        print("All data cleared successfully!")
+    else:
+        print("Clear operation cancelled.")
+
+def help_instructions():
+    print("\nHelp / Instructions:")
+    print("- Use the menu numbers to navigate options.")
+    print("- You can add students and enter multiple exam results.")
+    print("- A student passes an exam if their score is 80 or above.")
+    print("- Save your data often to prevent loss.")
+    print("- You can clear all data (requires confirmation).")
+    print("- Exit the system with option 0.")
+
+def add_exam_result():
+    sid = input("Enter student ID: ")
+    for record in records:
+        if record['id'] == sid:
+            exam = input("Enter exam name: ")
+            try:
+                score = float(input("Enter exam score (0-100): "))
+                record['exam_results'][exam] = score
+                print("Exam result added.")
+            except ValueError:
+                print("Invalid score.")
+            return
+    print("Student not found.")
+
+def view_exam_results():
+    sid = input("Enter student ID: ")
+    for record in records:
+        if record['id'] == sid:
+            if not record['exam_results']:
+                print("No exam results yet.")
+                return
+            print(f"Exam Results for {record['name']}:")
+            for exam, score in record['exam_results'].items():
+                status = "PASSED ✅" if score >= 80 else "FAILED ❌"
+                print(f"{exam}: {score} - {status}")
+            return
+    print("Student not found.")
+
+def main():
+    welcome_screen()
+    while True:
+        main_menu()
+        choice = input("Choose an option: ")
+        try:
+            if choice == '1':
+                add_record()
+            elif choice == '2':
+                view_records()
+            elif choice == '3':
+                search_record()
+            elif choice == '4':
+                update_record()
+            elif choice == '5':
+                delete_record()
+            elif choice == '6':
+                calculate_summary_stats()
+            elif choice == '7':
+                save_records_to_file()
+            elif choice == '8':
+                load_records_from_file()
+            elif choice == '9':
+                clear_all_data()
+            elif choice == '10':
+                help_instructions()
+            elif choice == '11':
+                add_exam_result()
+            elif choice == '12':
+                view_exam_results()
+            elif choice == '0':
+                print("Exiting the system. Goodbye!")
+                break
+            else:
+                print("Invalid option. Please try again.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
+    main()
