@@ -1,0 +1,18 @@
+﻿def valid_palindrome(s: str) -> bool:
+    def is_palindrome(sub_s: str) -> bool:
+        return sub_s == sub_s[::-1]  # Stringi tərsinə çevirib müqayisə edirik
+    
+    left, right = 0, len(s) - 1
+    
+    while left < right:
+        if s[left] != s[right]:  # Əgər iki simvol fərqlidirsə, iki mümkün çıxarma yoxlayırıq
+            return is_palindrome(s[left+1:right+1]) or is_palindrome(s[left:right])
+        left += 1
+        right -= 1
+    
+    return True  # Əgər problem yoxdursa, tam palindrome kimi qəbul edilir
+
+# Test nümunələri
+print(valid_palindrome("aba"))  # Output: True
+print(valid_palindrome("abca"))  # Output: True
+print(valid_palindrome("abc"))  # Output: False
