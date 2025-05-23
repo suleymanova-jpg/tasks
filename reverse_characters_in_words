@@ -1,0 +1,7 @@
+﻿def reverse_characters_in_words(s: str) -> str:
+    return " ".join(word[::-1] for word in s.split(" "))
+
+# Test nümunələri
+print(reverse_characters_in_words("Let's take LeetCode contest"))  # Output: "s'teL ekat edoCteeL tsetnoc"
+print(reverse_characters_in_words("Hello World"))  # Output: "olleH dlroW"
+print(reverse_characters_in_words(" Double spaces "))  # Output: " elbuoD secaps "
