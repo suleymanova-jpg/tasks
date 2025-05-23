@@ -1,0 +1,14 @@
+﻿def beautifulDays(i: int, j: int, k: int) -> int:
+    beautiful_count = 0
+    
+    for day in range(i, j + 1):
+        reversed_day = int(str(day)[::-1])  # Günü tərsinə çeviririk
+        if abs(day - reversed_day) % k == 0:  # Fərq k-ya bölünürsə, gözəl gündür
+            beautiful_count += 1
+            
+    return beautiful_count
+
+# Test nümunələri
+print(beautifulDays(20, 23, 6))  # Output: 2
+print(beautifulDays(1, 10, 1))   # Output: 10
+print(beautifulDays(13, 45, 3))  # Output: 33
