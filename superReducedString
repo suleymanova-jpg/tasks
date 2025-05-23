@@ -1,0 +1,15 @@
+﻿def superReducedString(s: str) -> str:
+    stack = []  # Yığma (stack) strukturu istifadə edərək ardıcıl eyni simvolları siləcəyik
+    
+    for char in s:
+        if stack and stack[-1] == char:
+            stack.pop()  # Əgər yığmanın sonunda eyni simvol varsa, onu silirik
+        else:
+            stack.append(char)  # Əks halda, simvolu yığmaya əlavə edirik
+    
+    return "".join(stack) if stack else "Empty String"  # Nəticəni qaytarırıq, əgər boşdursa "Empty String" qaytarırıq
+
+# Test nümunələri
+print(superReducedString("aab"))  # Output: "b"
+print(superReducedString("abba"))  # Output: "Empty String"
+print(superReducedString("aa"))  # Output: "Empty String"
