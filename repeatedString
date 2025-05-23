@@ -1,0 +1,14 @@
+﻿def repeatedString(s: str, n: int) -> int:
+    count_a_in_s = s.count('a')  # Verilən sətirdəki "a" simvollarının sayı
+    full_repeats = n // len(s)  # Sətirin tam təkrarlanma sayı
+    remaining_chars = n % len(s)  # Tam bölünməyən hissə
+    
+    total_a_count = full_repeats * count_a_in_s  # Tam təkrarlardan gələn "a" sayı
+    total_a_count += s[:remaining_chars].count('a')  # Qalan hissədən gələn "a" sayı
+    
+    return total_a_count
+
+# Test nümunələri
+print(repeatedString("abcac", 10))  # Output: 4
+print(repeatedString("a", 1000000))  # Output: 1000000
+print(repeatedString("bcd", 10))  # Output: 0
