@@ -1,0 +1,8 @@
+ef count_divisible_numbers(a, d):
+    k=0
+    for i in a:
+        if i%d==0:
+            k=k+1
+    return k
+
+print(count_divisible_numbers([10, 20, 30, 40, 50], 10)) 
