@@ -1,0 +1,22 @@
+def quick_sort_partition(arr: list[int], low: int, high: int) -> int:
+    pivot = arr[high]  # Pivot elementini seçirik (sonuncu element)
+    i = low - 1  # Kiçik elementlər üçün indeks
+    
+    for j in range(low, high):
+        if arr[j] <= pivot:  # Əgər cari element pivota bərabər və ya kiçikdirsə
+            i += 1
+            arr[i], arr[j] = arr[j], arr[i]  # Yer dəyişdiririk
+    
+    arr[i + 1], arr[high] = arr[high], arr[i + 1]  # Pivotu düzgün yerə qoyuruq
+    
+    return i + 1  # Pivotun sonuncu indeksini qaytarırıq
+
+# Test nümunələri
+arr1 = [4, 2, 1, 5, 9, 7]
+print(quick_sort_partition(arr1, 0, 5), arr1)  # Output: 4, Sorted: [4, 2, 1, 5, 7, 9]
+
+arr2 = [10, 20, 5, 30, 40]
+print(quick_sort_partition(arr2, 0, 4), arr2)  # Output: 4, Sorted: [10, 5, 20, 30, 40]
+
+arr3 = [2, 3, 1, 5, 8, 7]
+print(quick_sort_partition(arr3, 0, 5), arr3)  # Output: 4, Sorted: [2, 3, 1, 5, 7, 8]
