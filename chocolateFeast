@@ -1,0 +1,15 @@
+﻿def chocolateFeast(n: int, c: int, m: int) -> int:
+    chocolates = n // c  # İlk alınan şokoladların sayı
+    wrappers = chocolates  # Alınan şokoladların qablaşdırmaları
+    
+    while wrappers >= m:
+        new_chocolates = wrappers // m  # Qablaşdırmalardan alınan əlavə şokoladlar
+        chocolates += new_chocolates  # Yeni şokoladları əlavə edirik
+        wrappers = wrappers % m + new_chocolates  # Qalan qablaşdırmalar və yeni gələnlər
+    
+    return chocolates
+
+# Test nümunələri
+print(chocolateFeast(15, 3, 2))  # Output: 9
+print(chocolateFeast(10, 2, 5))  # Output: 6
+print(chocolateFeast(12, 4, 4))  # Output: 3
