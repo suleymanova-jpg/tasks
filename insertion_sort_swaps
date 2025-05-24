@@ -1,0 +1,34 @@
+﻿def compare_swaps_bubble_insertion_sort(arr):
+    def bubble_sort_swaps(arr):
+        swaps = 0
+        n = len(arr)
+        a = arr[:]
+        for i in range(n):
+            for j in range(n - 1):
+                if a[j] > a[j + 1]:
+                    a[j], a[j + 1] = a[j + 1], a[j]
+                    swaps += 1
+        return swaps
+
+    def insertion_sort_swaps(arr):
+        swaps = 0
+        a = arr[:]
+        for i in range(1, len(a)):
+            key = a[i]
+            j = i - 1
+            while j >= 0 and a[j] > key:
+                a[j + 1] = a[j]
+                swaps += 1
+                j -= 1
+            a[j + 1] = key
+        return swaps
+
+    bubble_swaps = bubble_sort_swaps(arr)
+    insertion_swaps = insertion_sort_swaps(arr)
+
+    return "insertion" if insertion_swaps < bubble_swaps else "bubble"
+
+# Test nümunələri
+print(compare_swaps_bubble_insertion_sort([5, 1, 4, 2, 8]))  # Output: "insertion"
+print(compare_swaps_bubble_insertion_sort([1]))  # Output: "insertion"
+print(compare_swaps_bubble_insertion_sort([]))  # Output: "insertion"
