@@ -1,0 +1,29 @@
+﻿from collections import Counter
+
+def happyLadybugs(b: str) -> str:
+    # Əgər bütün xanalar boşdursa, oyun qazanılır
+    if all(c == '_' for c in b):
+        return "YES"
+    
+    count = Counter(b)  # Hər bir simvolun tezliyini hesablayırıq
+    
+    # Əgər tək olan bir simvol varsa və o '_' deyil, oyun mümkün deyil
+    for char, freq in count.items():
+        if char != '_' and freq == 1:
+            return "NO"
+    
+    # Əgər boş xanalar varsa və tək simvollar yoxdursa, həmişə mümkün olur
+    if '_' in b:
+        return "YES"
+    
+    # Əks halda, mövcud ardıcıllıq yoxlanır
+    for i in range(1, len(b) - 1):
+        if b[i] != b[i - 1] and b[i] != b[i + 1]:
+            return "NO"
+    
+    return "YES"
+
+# Test nümunələri
+print(happyLadybugs("RBY_YBR"))  # Output: "YES"
+print(happyLadybugs("X_Y__X"))  # Output: "NO"
+print(happyLadybugs("_"))  # Output: "YES"
