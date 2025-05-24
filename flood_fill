@@ -1,0 +1,27 @@
+﻿def flood_fill(image: list[list[int]], sr: int, sc: int, color: int) -> list[list[int]]:
+    original_color = image[sr][sc]
+    
+    # Əgər yeni rəng eyni rəngdirsə, heç nə dəyişmir
+    if original_color == color:
+        return image
+    
+    rows, cols = len(image), len(image[0])
+    
+    def dfs(r, c):
+        if r < 0 or r >= rows or c < 0 or c >= cols or image[r][c] != original_color:
+            return
+        
+        image[r][c] = color
+        
+        dfs(r + 1, c)  # Aşağı
+        dfs(r - 1, c)  # Yuxarı
+        dfs(r, c + 1)  # Sağ
+        dfs(r, c - 1)  # Sol
+    
+    dfs(sr, sc)  # DFS ilə rəng dəyişməyi başladırıq
+    return image
+
+# Test nümunələri
+print(flood_fill([[2, 2, 2], [2, 2, 0], [2, 0, 1]], 1, 1, 2))  # Output: [[2, 2, 2], [2, 2, 0], [2, 0, 1]]
+print(flood_fill([[0, 0, 0], [0, 0, 0]], 0, 0, 0))  # Output: [[0, 0, 0], [0, 0, 0]]
+print(flood_fill([[0, 0, 0], [0, 2, 0]], 1, 1, 2))  # Output: [[0, 0, 0], [0, 2, 0]]
