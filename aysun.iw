@@ -8,14 +8,7 @@ records = []
 # ASCII Art və Loading
 def welcome_screen():
     ascii_logo = r"""
-   __        _ _       _                                      
-  / _ \      () |     | |                                     
- | |  | |_   _ | | _| |_   __ _ _ __   _ _ _ _  _ __  
- | |  | | | | | | _/ _| '_ \ / _ \ '_ ` _ \ / ` | ' \| '_ \ 
- | |_| | || | | || (_| | | |  _/ | | | | | (| | |) | |_) |
-  \_\\\,||\\_|| ||\_|| || ||\_,| ._/| ._/ 
-                                                   | |   | |    
-                                                   ||   ||    
+
     """
     print(ascii_logo)
     print("            Welcome to the Online Exam System")
