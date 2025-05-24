@@ -1,0 +1,20 @@
+def closestNumbers(arr: list[int]) -> list[int]:
+    arr.sort()  # Əvvəlcə siyahını artan sıraya görə sıralayırıq
+    min_diff = float('inf')  # Ən kiçik fərqi izləmək üçün dəyişən
+    result = []  # Ən yaxın cütlükləri saxlamaq üçün siyahı
+    
+    # Bütün qonşu elementlər arasındakı fərqi hesablayırıq
+    for i in range(len(arr) - 1):
+        diff = arr[i+1] - arr[i]
+        if diff < min_diff:
+            min_diff = diff
+            result = [arr[i], arr[i+1]]
+        elif diff == min_diff:
+            result.extend([arr[i], arr[i+1]])
+    
+    return result
+
+# Test nümunələri
+print(closestNumbers([1, 2, 3, 4, 5]))  # Output: [1, 2, 2, 3, 3, 4, 4, 5]
+print(closestNumbers([10, 20, 30, 40, 50]))  # Output: [10, 20, 20, 30, 30, 40, 40, 50]
+print(closestNumbers([1, 2, 3, 4, 5]))  # Output: [1, 2, 2, 3, 3, 4, 4, 5]
