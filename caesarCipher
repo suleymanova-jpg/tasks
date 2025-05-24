@@ -1,0 +1,20 @@
+﻿def caesarCipher(s: str, k: int) -> str:
+    encrypted_string = ""
+    
+    for char in s:
+        if char.isalpha():  # Yalnız hərfləri dəyişdiririk
+            shift = k % 26  # Dövr edən dəyişiklik
+            if char.islower():  # Kiçik hərflər
+                new_char = chr(((ord(char) - ord('a') + shift) % 26) + ord('a'))
+            else:  # Böyük hərflər
+                new_char = chr(((ord(char) - ord('A') + shift) % 26) + ord('A'))
+            encrypted_string += new_char
+        else:
+            encrypted_string += char  # Qeyri-hərf simvollarını dəyişmirik
+            
+    return encrypted_string
+
+# Test nümunələri
+print(caesarCipher("middle-Outz", 2))  # Output: "okffng-Qwvb"
+print(caesarCipher("Always-Look-on-the-Bright-Side-of-Life", 5))  # Output: "Fqbfdx-Qttp-ts-ymj-Gwnlmy-Xnij-tk-Qnkj"
+print(caesarCipher("abc", 3))  # Output: "def"
