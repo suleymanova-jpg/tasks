@@ -1,0 +1,21 @@
+﻿def luckBalance(k: int, contests: list[list[int]]) -> int:
+    important_contests = []
+    total_luck = 0
+    
+    for luck, importance in contests:
+        if importance == 1:
+            important_contests.append(luck)
+        else:
+            total_luck += luck  # Əhəmiyyətsiz yarışlardan qazanılan şans
+    
+    important_contests.sort(reverse=True)  # Ən böyük şans dəyərlərini önə çıxarmaq
+    
+    total_luck += sum(important_contests[:k])  # k sayda ən yüksək əhəmiyyətli yarışları uduzuruq
+    total_luck -= sum(important_contests[k:])  # Digər yarışları qazanmalıyıq
+    
+    return total_luck
+
+# Test nümunələri
+print(luckBalance(2, [[5, 1], [1, 1], [4, 0]]))  # Output: 10
+print(luckBalance(1, [[5, 1], [1, 1], [4, 0]]))  # Output: 8
+print(luckBalance(3, [[10, 1], [5, 1], [1, 1], [7, 0]]))  # Output: 23
