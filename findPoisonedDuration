@@ -1,0 +1,17 @@
+﻿def findPoisonedDuration(timeSeries: list[int], duration: int) -> int:
+    if not timeSeries:
+        return 0
+    
+    total_duration = 0
+
+    for i in range(len(timeSeries) - 1):
+        total_duration += min(duration, timeSeries[i + 1] - timeSeries[i])
+
+    total_duration += duration  # Sonuncu hücumun təsirini əlavə edirik
+    
+    return total_duration
+
+# Test nümunələri
+print(findPoisonedDuration([1, 4], 2))  # Output: 4
+print(findPoisonedDuration([1, 2], 2))  # Output: 3
+print(findPoisonedDuration([1, 2, 4, 5, 7], 3))  # Output: 9
