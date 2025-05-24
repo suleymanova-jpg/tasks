@@ -1,0 +1,12 @@
+﻿from collections import Counter
+
+def can_form_palindrome(s: str) -> str:
+    char_counts = Counter(s)  # Hər simvolun sayını hesablayırıq
+    odd_count = sum(1 for count in char_counts.values() if count % 2 != 0)  # Tək sayda simvol olanları tapırıq
+    
+    return "YES" if odd_count <= 1 else "NO"
+
+# Test nümunələri
+print(can_form_palindrome("aabb"))     # Output: "YES"
+print(can_form_palindrome("racecar"))  # Output: "YES"
+print(can_form_palindrome("abc"))      # Output: "NO"
