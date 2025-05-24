@@ -1,0 +1,27 @@
+﻿def find_common_strings_with_least_index_sum(list1: list[str], list2: list[str]) -> list[str]:
+    index_map = {word: idx for idx, word in enumerate(list1)}  # 1-ci siyahının indekslərini saxlayırıq
+    min_sum = float('inf')  # Ən kiçik indeks cəmini izləmək üçün
+    result = []  # Cavab siyahısı
+
+    for idx, word in enumerate(list2):
+        if word in index_map:
+            index_sum = idx + index_map[word]  # İndeks cəmi
+            if index_sum < min_sum:
+                min_sum = index_sum
+                result = [word]  # Yeni ən kiçik cəmi olan sözü saxlayırıq
+            elif index_sum == min_sum:
+                result.append(word)  # Eyni indeks cəmi olan sözü əlavə edirik
+
+    return result
+
+# Test nümunələri
+print(find_common_strings_with_least_index_sum(["Shogun", "Tapioca Express", "Burger King", "KFC"], 
+                                               ["Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun"]))  
+# Output: ["Shogun"]
+
+print(find_common_strings_with_least_index_sum(["Shogun", "Tapioca Express", "Burger King", "KFC"], 
+                                               ["KFC", "Shogun", "Burger King"]))  
+# Output: ["Shogun"]
+
+print(find_common_strings_with_least_index_sum(["happy", "sad", "good"], ["sad", "happy", "good"]))  
+# Output: ["sad", "happy"]
