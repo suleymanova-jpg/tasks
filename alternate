@@ -1,0 +1,22 @@
+﻿def alternate(s: str) -> int:
+    unique_chars = set(s)  # Sətirdəki unikal simvolları tapırıq
+    max_length = 0
+    
+    # İki simvol seçərək onları qoruyub saxlayan ardıcıllıq yaradılır
+    for char1 in unique_chars:
+        for char2 in unique_chars:
+            if char1 == char2:
+                continue
+            
+            filtered = [c for c in s if c == char1 or c == char2]
+            
+            # Təkrarlanan simvolların ardıcıllıqla olub-olmadığını yoxlayırıq
+            if all(filtered[i] != filtered[i+1] for i in range(len(filtered)-1)):
+                max_length = max(max_length, len(filtered))
+    
+    return max_length
+
+# Test nümunələri
+print(alternate("abcbd"))  # Output: 3
+print(alternate("beabeefeab"))  # Output: 5
+print(alternate("aaaa"))  # Output: 0
