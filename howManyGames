@@ -1,0 +1,15 @@
+﻿def howManyGames(p: int, d: int, m: int, s: int) -> int:
+    games_bought = 0
+    current_price = p
+
+    while s >= current_price:
+        games_bought += 1
+        s -= current_price
+        current_price = max(current_price - d, m)  # Qiymət azalma limitini qoruyuruq
+
+    return games_bought
+
+# Test nümunələri
+print(howManyGames(20, 3, 6, 80))  # Output: 6
+print(howManyGames(20, 3, 6, 50))  # Output: 2
+print(howManyGames(10, 2, 3, 100))  # Output: 28
