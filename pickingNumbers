@@ -1,0 +1,15 @@
+﻿from collections import Counter
+
+def pickingNumbers(a: list[int]) -> int:
+    count = Counter(a)  # Hər ədədin tezliyini hesablayırıq
+    max_length = 0  # Ən uzun alt-siyahının uzunluğunu izləyirik
+    
+    for num in count:
+        max_length = max(max_length, count[num] + count.get(num + 1, 0))  # `num` və `num+1` birlikdə sayılır
+    
+    return max_length
+
+# Test nümunələri
+print(pickingNumbers([1, 2, 2, 3, 1, 2]))  # Output: 5
+print(pickingNumbers([4, 6, 5, 3, 3, 1]))  # Output: 3
+print(pickingNumbers([1, 1, 1, 1]))  # Output: 4
