@@ -1,0 +1,24 @@
+﻿def largestPermutation(k: int, arr: list[int]) -> list[int]:
+    index_map = {num: i for i, num in enumerate(arr)}  # Hər ədədi indekslərlə xəritələndiririk
+    n = len(arr)
+    
+    for i in range(n):
+        if k == 0:
+            break
+        
+        max_value = n - i  # Müvafiq indeksdə olması gərəkən maksimum ədəd
+        if arr[i] != max_value:
+            max_index = index_map[max_value]  # Maksimum ədədin indeksi
+            arr[i], arr[max_index] = arr[max_index], arr[i]  # Yer dəyişdiririk
+            
+            index_map[arr[max_index]] = max_index  # Xəritədə yeniləmə
+            index_map[arr[i]] = i
+            
+            k -= 1  # Swap etdikdən sonra k-ni azaldırıq
+    
+    return arr
+
+# Test nümunələri
+print(largestPermutation(2, [4, 3, 1, 2]))  # Output: [4, 3, 2, 1]
+print(largestPermutation(1, [4, 2, 1, 3]))  # Output: [4, 3, 1, 2]
+print(largestPermutation(3, [4, 3, 2, 1]))  # Output: [4, 3, 2, 1]
