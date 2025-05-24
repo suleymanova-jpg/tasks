@@ -1,0 +1,26 @@
+﻿from collections import Counter
+
+def find_shortest_subarray_with_degree(nums: list[int]) -> int:
+    count = Counter(nums)  # Hər elementin tezliyini hesablayırıq
+    degree = max(count.values())  # Ən çox təkrarlanan elementin tezliyi (dərəcə)
+    
+    first_index = {}  # Hər elementin ilk indeksini saxlayırıq
+    last_index = {}  # Hər elementin son indeksini saxlayırıq
+    
+    for i, num in enumerate(nums):
+        if num not in first_index:
+            first_index[num] = i
+        last_index[num] = i  # Hər dəfə yenilənir
+    
+    min_length = float('inf')
+    
+    for num in count:
+        if count[num] == degree:  # Ən çox təkrarlanan elementlər üçün araşdırırıq
+            min_length = min(min_length, last_index[num] - first_index[num] + 1)
+    
+    return min_length
+
+# Test nümunələri
+print(find_shortest_subarray_with_degree([1, 2, 2, 3, 1]))  # Output: 2
+print(find_shortest_subarray_with_degree([1, 2, 2, 3, 1, 4, 2]))  # Output: 6
+print(find_shortest_subarray_with_degree([1, 2, 3, 4, 5]))  # Output: 1
