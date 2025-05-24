@@ -1,0 +1,9 @@
+﻿def gameOfStones(n: int) -> str:
+    return "First" if n % 7 in [2, 3, 4, 5, 6] else "Second"
+
+# Test nümunələri
+print(gameOfStones(1))  # Output: "Second"
+print(gameOfStones(2))  # Output: "First"
+print(gameOfStones(3))  # Output: "First"
+print(gameOfStones(7))  # Output: "Second"
+print(gameOfStones(10)) # Output: "First"
